@@ -18,20 +18,18 @@ class PengeluaranPribadiController extends AppController
 
     public function listpengeluaran()
     {
-        $this->request->allowMethod(["get"]);
+        $this->request->allowMethod(["GET"]);
+        $parameter = $this->request->getQuery();
 
-        
-
-        $pengeluaran = $this->RaihanPengeluaranpribadi->find('all');
-        // ->toList();
+        if(!empty($parameter)) $pengeluaran = $this->RaihanPengeluaranpribadi->find()->where($parameter);
+        else $pengeluaran = $this->RaihanPengeluaranpribadi->find();
 
         $this->set([
             "status" => true,
             "message" => "List Pengeluaran",
+            "condition param(s)" => $parameter,
             "data" => $pengeluaran,
-            "_serialize" => ['status', 'message', 'data']
+            "_serialize" => ['status', 'message', 'condition param(s)', 'data']
         ]);
-
-        //$this->viewBuilder()->setOption("serialize", ["data"]);
     }
 }

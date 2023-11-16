@@ -95,20 +95,18 @@ return function (RouteBuilder $routes): void {
      */
 
 
-    //  config/routes.php
+    //  config/routes.php   
 
     $routes->prefix("Api", function (RouteBuilder $builder) {
-
-        $builder->setExtensions(["json", "xml"]);
-    
-        $builder->connect("/list-pengeluaran", ["controller" => "PengeluaranPribadi", "action" => "listpengeluaran"]);
-        $builder->connect("/list-kategori", ["controller" => "KategoriPengeluaran", "action" => "listkategori"]);
+        $builder->connect("/list-pengeluaran", [
+            "controller" => "PengeluaranPribadi", 
+            "action" => "listpengeluaran", 
+            "_ext" => "json"
+        ]);
+        $builder->connect("/list-kategori", [
+            "controller" => "KategoriPengeluaran", 
+            "action" => "listkategori", 
+            "_ext" => "json"
+        ]);
     });
-
-// $routes->scope('/', function ($routes) {
-//     $routes->setRouteClass(DashedRoute::class);
-
-//     $routes->connect('/api/raihan-pengeluaranpribadi', ['controller' => 'PengeluaranPribadi', 'action' => 'index']);
-// });
-
 };

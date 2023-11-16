@@ -25,9 +25,11 @@ class KategoriPengeluaranController extends AppController
     
     public function listkategori()
     {
-        $this->request->allowMethod('get');
+        $this->request->allowMethod(['get']);
+        $parameter = $this->request->getQuery();
 
-        $kategoriPengeluaran = $this->RaihanKategoripengeluaran->find('all');
+        if (!empty($parameter)) $kategoriPengeluaran = $this->RaihanKategoripengeluaran->find()->where($parameter);
+        else $kategoriPengeluaran = $this->RaihanKategoripengeluaran->find();
 
         $this->set([
             'data' => $kategoriPengeluaran,
