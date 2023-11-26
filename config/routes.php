@@ -62,6 +62,8 @@ return function (RouteBuilder $routes): void {
          */
         $builder->connect('/pages/*', 'Pages::display');
 
+        $builder->setExtensions(['JSON', 'XML']);
+
         /*
          * Connect catchall routes for all controllers.
          *
@@ -95,18 +97,24 @@ return function (RouteBuilder $routes): void {
      */
 
 
-    //  config/routes.php   
+    //  config/routes.php  
 
-    $routes->prefix("Api", function (RouteBuilder $builder) {
-        $builder->connect("/list-pengeluaran", [
-            "controller" => "PengeluaranPribadi", 
-            "action" => "listpengeluaran", 
-            "_ext" => "json"
-        ]);
-        $builder->connect("/list-kategori", [
-            "controller" => "KategoriPengeluaran", 
-            "action" => "listkategori", 
-            "_ext" => "json"
-        ]);
+    $routes->scope('/', function ($routes) {
+        $routes->setExtensions(['json']);
+        $routes->resources('PengeluaranPribadi');
+        $routes->resources('KategoriPengeluaran');
     });
+
+    // $routes->prefix("Api", function (RouteBuilder $builder) {
+    //     $builder->connect("/list-pengeluaran", [
+    //         "controller" => "PengeluaranPribadi", 
+    //         "action" => "listpengeluaran", 
+    //         "_ext" => "json"
+    //     ]);
+    //     $builder->connect("/list-kategori", [
+    //         "controller" => "KategoriPengeluaran", 
+    //         "action" => "listkategori", 
+    //         "_ext" => "json"
+    //     ]);
+    // });
 };
